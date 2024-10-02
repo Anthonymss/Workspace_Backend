@@ -1,4 +1,4 @@
-package com.coworking.auth_service.configuration.jwt.filter;
+package com.coworking.auth_service.configuration.jwt;
 import com.coworking.auth_service.exception.InvalidJwtTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,6 +1,6 @@
 package com.coworking.auth_service.service.impl;
 
-import com.coworking.auth_service.configuration.jwt.filter.JwtTokenProvider;
+import com.coworking.auth_service.configuration.jwt.JwtTokenProvider;
 import com.coworking.auth_service.exception.UserNotFoundException;
 import com.coworking.auth_service.exception.UserNotAuthorization;
 import com.coworking.auth_service.persistence.entity.Role;

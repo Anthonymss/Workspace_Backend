@@ -1,4 +1,4 @@
-package com.coworking.auth_service.configuration.jwt.filter;
+package com.coworking.auth_service.configuration.security;
 
 import com.coworking.auth_service.persistence.entity.User;
 import com.coworking.auth_service.persistence.repository.UserRepository;

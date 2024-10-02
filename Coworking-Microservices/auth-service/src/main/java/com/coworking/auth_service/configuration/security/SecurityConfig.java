@@ -1,6 +1,6 @@
 package com.coworking.auth_service.configuration.security;
 
-import com.coworking.auth_service.configuration.jwt.filter.JwtAuthenticationFilter;
+import com.coworking.auth_service.configuration.jwt.JwtAuthenticationFilter;
 import com.coworking.auth_service.util.enums.RoleName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,19 +33,9 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers(
-                                "api/v1/register"
-                        ).permitAll()
+                        .requestMatchers("api/v1/register").permitAll()
                         .requestMatchers("api/v1/users").hasRole(RoleName.ADMIN.toString())
-                        /*
-                        .requestMatchers("/api/v1/admin/**","/api/v1/ordenTrabajo/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers(
-                                "/api/v1/mantenimiento/**",
-                                "/api/v1/ordenTrabajo/getAll"
-                        ).hasRole("MANTENIMIENTO")
-                        .requestMatchers("/api/v1/almacen/**").hasRole("ALMACEN")
                         .anyRequest().authenticated()
-                */
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
