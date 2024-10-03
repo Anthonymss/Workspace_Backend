@@ -10,8 +10,6 @@ import com.coworking.auth_service.persistence.repository.UserRepository;
 import com.coworking.auth_service.presentation.dto.AuthRequest;
 import com.coworking.auth_service.presentation.dto.UserDto;
 import com.coworking.auth_service.util.enums.RoleName;
-import com.coworking.auth_service.util.mapper.RoleMapper;
-import com.coworking.auth_service.util.mapper.UserMapper;
 import com.coworking.auth_service.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,8 +27,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    private final RoleMapper roleMapper;
+
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -38,23 +35,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto createUser(UserDto userDto) {
-        User user = userMapper.toEntity(userDto);
-        User savedUser = userRepository.save(user);
-        return userMapper.toDTO(savedUser);
+        //User user = userMapper.toEntity(userDto);
+        //User savedUser = userRepository.save(user);
+        return null;//userMapper.toDTO(savedUser);
     }
 
     @Override
     public UserDto getUserById(Long id) {
-        return userRepository.findById(id)
+        return null;/*userRepository.findById(id)
                 .map(userMapper::toDTO)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    */
     }
 
     @Override
     public List<UserDto> getAllUsers() {
-        return userRepository.findAll().stream()
+        return null;/*userRepository.findAll().stream()
                 .map(userMapper::toDTO)
                 .toList();
+                */
     }
 
     @Override
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
 
          */
-        return userMapper.toDTO(userRepository.save(existingUser));
+        return null;//userMapper.toDTO(userRepository.save(existingUser));
     }
 
     @Override
