@@ -1,8 +1,10 @@
 package com.coworking.auth_service.persistence.entity;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -24,8 +26,6 @@ public class  User {
     @NotNull
     @Column(unique = true,length = 100,nullable = false)
     private String email;
-    @NotNull
-    @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -33,4 +33,12 @@ public class  User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date accountCreated;
+    //para oauth
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
+
+
 }
