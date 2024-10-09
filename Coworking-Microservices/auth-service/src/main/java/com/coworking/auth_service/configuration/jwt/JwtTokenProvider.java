@@ -1,6 +1,7 @@
 package com.coworking.auth_service.configuration.jwt;
 
 import com.coworking.auth_service.exception.InvalidJwtTokenException;
+import com.coworking.auth_service.persistence.entity.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +42,20 @@ public class JwtTokenProvider {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
+    public String generateToken(User user) {
+        List<String> roles = user.getRoles().stream()
+                .map(x->x.getName().name())
+                .collect(Collectors.toList());
+
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
+    }
+
 
 
     public String getUsernameFromToken(String token) {

@@ -1,8 +1,6 @@
-package com.coworking.auth_service.presentation.advice;
+package com.coworking.auth_service.exception.advice;
 
-import com.coworking.auth_service.exception.RoleNotFoundException;
-import com.coworking.auth_service.exception.UserNotFoundException;
-import com.coworking.auth_service.exception.UserNotAuthorization;
+import com.coworking.auth_service.exception.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +24,13 @@ public class ControllerAdvice {
     @ExceptionHandler(UserNotAuthorization.class)
     public ResponseEntity<String> handleUserNotUnthorization(UserNotAuthorization userNotAuthorization) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(userNotAuthorization.getMessage());
+    }
+    @ExceptionHandler(InvalidTokenOfGoogleException.class)
+    public ResponseEntity<String> handleInvalidTokenOfGoogle(InvalidTokenOfGoogleException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<String> handleDuplicateEmail(DuplicateEmailException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
 }
