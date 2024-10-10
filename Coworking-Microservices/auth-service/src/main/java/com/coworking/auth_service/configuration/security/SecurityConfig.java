@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> authorize
                         //http://localhost:8081/api/v1/auth/register/oauth2/google
                         .requestMatchers("api/v1/auth/**").permitAll()
+                        .requestMatchers("api/**").permitAll()
+                        .requestMatchers("api").permitAll()
                         .requestMatchers("api/v1/users").hasRole(RoleName.ADMIN.toString())
                         .anyRequest().authenticated()
                 )

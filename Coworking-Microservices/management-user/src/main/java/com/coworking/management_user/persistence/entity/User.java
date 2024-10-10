@@ -3,7 +3,9 @@ package com.coworking.management_user.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -32,6 +34,9 @@ public class  User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date accountCreated;
     //para oauth
     @Column(name = "profile_image_url")
     private String profileImageUrl;

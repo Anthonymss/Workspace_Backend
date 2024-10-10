@@ -72,6 +72,7 @@ public class JwtTokenProvider {
             System.err.println("Roles no es una lista o es nulo: " + rolesObject);
             roles = List.of();
         }
+        System.out.println("TUS ROLES DE TU ROKEN "+roles);
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());

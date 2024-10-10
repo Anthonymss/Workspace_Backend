@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/management")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class ManagementUserController {
     private final UserService userService;
     @GetMapping("{email}")
@@ -19,7 +20,7 @@ public class ManagementUserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public String hello(){
-        return "Hello World by Anthonymss for ROLE_USER!";
+        return "Hello World by Anthonymss !";
     }
 
 }
