@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 @RestController
 @RequestMapping("api/v1/auth")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class RegisterController {
     private  final UserService userService;

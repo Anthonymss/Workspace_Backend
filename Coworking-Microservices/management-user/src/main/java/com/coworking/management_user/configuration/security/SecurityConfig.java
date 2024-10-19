@@ -2,6 +2,8 @@ package com.coworking.management_user.configuration.security;
 
 import com.coworking.management_user.configuration.jwt.JwtAuthenticationFilter;
 import com.coworking.management_user.utils.enums.RoleName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,16 +20,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -37,37 +36,36 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        logger.debug("Configuring SecurityFilterChain...");
+
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize-> authorize
-                        .requestMatchers("api/v1/management").hasAnyRole(RoleName.ADMIN.name(),RoleName.USER.name())
-                        .requestMatchers("api/v1/management/**").hasAnyRole(RoleName.ADMIN.name(),RoleName.USER.name())
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(session->session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(authorize -> {
+                    logger.debug("Configuring authorized requests...");
+                    authorize
+                            //PROXIMA IMPLEMENTATION
+                            //.requestMatchers("api/v1/management").hasAnyRole(RoleName.ADMIN.name(), RoleName.USER.name())
+                            .requestMatchers("api/v1/management/**").permitAll()//hasAuthority(RoleName.USER.name())
+                            .anyRequest().authenticated();
+                })
+                .sessionManagement(session -> {
+                    logger.debug("Configuring session management...");
+                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                })
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        logger.debug("Creating BCryptPasswordEncoder bean...");
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        logger.debug("Creating AuthenticationManager bean...");
         return authenticationConfiguration.getAuthenticationManager();
     }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+
 }

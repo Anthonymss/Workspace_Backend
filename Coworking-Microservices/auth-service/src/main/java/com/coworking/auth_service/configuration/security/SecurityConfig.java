@@ -39,8 +39,11 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorize -> authorize
+                        //proxima configuration
                         //http://localhost:8081/api/v1/auth/register/oauth2/google
                         .requestMatchers("api/v1/auth/**").permitAll()
+                        .requestMatchers("api/**").permitAll()
+                        .requestMatchers("api").permitAll()
                         .requestMatchers("api/v1/users").hasRole(RoleName.ADMIN.toString())
                         .anyRequest().authenticated()
                 )
@@ -60,15 +63,5 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("*"));
-        source.registerCorsConfiguration("/**", config);
-        return source;
     }
 }
