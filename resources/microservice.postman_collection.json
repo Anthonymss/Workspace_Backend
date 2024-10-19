@@ -24,15 +24,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/register",
+							"raw": "http://localhost:8080/auth/api/v1/auth/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
+								"auth",
 								"api",
 								"v1",
+								"auth",
 								"register"
 							]
 						}
@@ -54,16 +56,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/register/login",
+							"raw": "http://localhost:8080/auth/api/v1/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
+								"auth",
 								"api",
 								"v1",
-								"register",
+								"auth",
 								"login"
 							]
 						}
@@ -83,7 +86,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaWFuYW50aG9ueWNoQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3Mjc5Njc5NTUsImV4cCI6MTcyODA1NDM1NX0.Oz2MLjqhbYi0DSdC053NzgWyNvCLz-PSE8mh4TqTCAZGdTxsSjPVjJwpEm0g4BoxbOZhfNF_UbL7KD0oK0j6JQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWEiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzI4NDc3Mzg5LCJleHAiOjE3Mjg1NjM3ODl9.4F1kr3irw4X6HkVFzfTDhzguKhMzWJqVvH3M6oxLPdb2ZlPIuUzqMhiX4kcx5ESTUtxnnXFU_2f520_9S5O8yg",
 									"type": "string"
 								}
 							]
@@ -91,12 +94,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/test",
+							"raw": "http://localhost:8083/api/v1/test",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
+							"port": "8083",
 							"path": [
 								"api",
 								"v1",
@@ -114,7 +117,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaWFuYW50aG9ueWNoQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3Mjc5Njc5NTUsImV4cCI6MTcyODA1NDM1NX0.Oz2MLjqhbYi0DSdC053NzgWyNvCLz-PSE8mh4TqTCAZGdTxsSjPVjJwpEm0g4BoxbOZhfNF_UbL7KD0oK0j6JQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWEiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzI4NDc3Mzg5LCJleHAiOjE3Mjg1NjM3ODl9.4F1kr3irw4X6HkVFzfTDhzguKhMzWJqVvH3M6oxLPdb2ZlPIuUzqMhiX4kcx5ESTUtxnnXFU_2f520_9S5O8yg",
 									"type": "string"
 								}
 							]
@@ -122,17 +125,55 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/test/admin",
+							"raw": "http://localhost:8083/api/v1/test/admin",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8082",
+							"port": "8083",
 							"path": [
 								"api",
 								"v1",
 								"test",
 								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "management",
+			"item": [
+				{
+					"name": "info cuenta email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaWFuYW50aG9ueWNoQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3MjkzMDk3NjIsImV4cCI6MTcyOTM5NjE2Mn0.MwLxL6tEicEZSS-LPvXlvOY4WtWBQkcaEtZLZODd3Vq9YOejJRZOfobmV21Pjr1rNqUQ8-7mIc-Iyl12lrmMiw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/management/api/v1/management/giananthonych@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"management",
+								"api",
+								"v1",
+								"management",
+								"giananthonych@gmail.com"
 							]
 						}
 					},

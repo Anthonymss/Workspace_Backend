@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .accountCreated(user.getAccountCreated())
+                .profileImageUrl(user.getProfileImageUrl())
                 .build();
     }
 }
