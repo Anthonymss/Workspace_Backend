@@ -19,7 +19,7 @@ public class ManagementUserController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public String hello(){
-        return "Hello World by Anthonymss for ROLE_USER!";
+        return "Hello World by Anthonymss !";
     }
 
 }
