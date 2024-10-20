@@ -8,15 +8,11 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class CorsConfig {
-    private final String urlFronend;
-    @Autowired
-    public CorsConfig(AppConfig appConfig) {
-        this.urlFronend = appConfig.urlFronend();
-    }
+
     @Bean
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin(urlFronend);
+        config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
