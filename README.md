@@ -6,6 +6,7 @@ Integrantes:
 Gian Anthony Choque Quispe (Anthonymss)
 Nilson Jhon Muñoz Nifla (njmn21)
 Gonzalo Pablo Nuñoncca Blanco (Proxyhead12)
+
 Diseño de la Arquitectura
 El diseño de la arquitectura está en la carpeta resources en formato PDF.
 Funcionalidades de la Aplicación
