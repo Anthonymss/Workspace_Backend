@@ -8,10 +8,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@AllArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
     private final String urlFronend;
 
+    @Autowired
+    public WebMvcConfig(AppConfig appConfig) {
+        this.urlFronend = appConfig.urlFronend();
+    }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/auth/api/**")
