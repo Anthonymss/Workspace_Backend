@@ -24,5 +24,5 @@ COPY --from=build /app/target/*.jar /app/app.jar
 # Exponer el puerto de la aplicación
 EXPOSE 8082
 
-# Comando para ejecutar la aplicación
-CMD ["java", "-jar", "/app/app.jar"]
+# Comando para ejecutar la aplicación con el perfil 'prod'
+CMD ["java", "-jar", "/app/app.jar", "--spring.profiles.active=prod"]
