@@ -3,6 +3,7 @@ package com.coworking.coworkingSpaces.presentation;
 import com.coworking.coworkingSpaces.persistence.entity.SpacesDTO;
 import com.coworking.coworkingSpaces.service.impl.SpacesService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
