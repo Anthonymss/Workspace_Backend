@@ -2,15 +2,15 @@ package com.coworking.management_user.presentation.advice;
 
 import com.coworking.management_user.exception.EmailNotFoundException;
 import com.coworking.management_user.exception.InvalidJwtTokenException;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.management.relation.RoleNotFoundException;
 
-@Configuration
-public class ControllerAdvice {
+@ControllerAdvice
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception ex) {

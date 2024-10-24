@@ -11,6 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class UserDto {
     private Long id;
     private String firstName;
@@ -18,5 +19,6 @@ public class UserDto {
     private String email;
     private Date accountCreated;
     private String profileImageUrl;
+    private Boolean statusOauthEnabled;
 
 }

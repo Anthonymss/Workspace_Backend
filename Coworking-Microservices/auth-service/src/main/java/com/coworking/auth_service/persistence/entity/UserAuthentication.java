@@ -15,7 +15,7 @@ public class UserAuthentication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false,unique = true)
     private User user;
     @Column(name = "auth_provider", nullable = false)
     private String authProvider;
