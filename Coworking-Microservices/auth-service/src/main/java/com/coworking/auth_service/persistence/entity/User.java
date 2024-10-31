@@ -39,6 +39,6 @@ public class  User {
     //para oauth
     @Column(name = "profile_image_url")
     private String profileImageUrl;
-
+    private Boolean statusOauthEnabled;
 
 }
