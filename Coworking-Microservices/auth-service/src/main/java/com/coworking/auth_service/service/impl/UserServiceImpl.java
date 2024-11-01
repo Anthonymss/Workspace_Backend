@@ -11,6 +11,8 @@ import com.coworking.auth_service.persistence.repository.UserRepository;
 import com.coworking.auth_service.presentation.dto.AuthRequest;
 import com.coworking.auth_service.presentation.dto.UserDto;
 import com.coworking.auth_service.service.IMethodInfoGoogle;
+import com.coworking.auth_service.service.NotificationService;
+import com.coworking.auth_service.service.feignclient.MailServiceFeignClient;
 import com.coworking.auth_service.util.enums.RoleName;
 import com.coworking.auth_service.service.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -18,6 +20,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,13 +44,14 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserAuthenticationRepository authenticationRepository;
     private final String clientIdGoogle;
+    private final NotificationService notificationService;
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            AuthenticationManager authenticationManager,
                            JwtTokenProvider jwtTokenProvider,
                            UserAuthenticationRepository authenticationRepository,
-                           @Qualifier("googleClientId") String clientIdGoogle) {
+                           @Qualifier("googleClientId") String clientIdGoogle, MailServiceFeignClient mailServiceFeign, NotificationService notificationService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -54,6 +59,7 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationRepository = authenticationRepository;
         this.clientIdGoogle = clientIdGoogle;
+        this.notificationService = notificationService;
     }
     @Override
     @Transactional
@@ -83,6 +89,14 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
                 .build();
         userRepository.save(newUser);
         authenticationRepository.save(userAuthentication);
+        UserDto userDtoSend =UserDto.builder()
+                .id(newUser.getId())
+                .accountCreated(newUser.getAccountCreated())
+                .firstName(newUser.getFirstName())
+                .lastName(newUser.getLastName())
+                .email(newUser.getEmail())
+                .build();
+        notificationService.sendWelcomeEmailAsync("WelcomeTemplate", userDtoSend);
         User userResponse=userRepository.findByEmail(email).get();
         String TOKEN=jwtTokenProvider.generateToken(newUser);
         return buildResponseMap(userResponse,TOKEN);
@@ -125,6 +139,14 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
             Role userRole = roleRepository.findByName(RoleName.USER);
             user.setRoles(Set.of(userRole));
             userRepository.save(user);
+            UserDto userDtoSend =UserDto.builder()
+                    .id(user.getId())
+                    .accountCreated(user.getAccountCreated())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .email(user.getEmail())
+                    .build();
+            notificationService.sendWelcomeEmailAsync("WelcomeTemplate", userDtoSend);
             return "User registered successfully with role USER";
         }catch (Exception e){
             return "Failed to register user";
@@ -209,4 +231,6 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
     public Map<String, String> getInfoForAccountGoogle(String token) {
         return getInfoGoogle(token);
     }
+
 }
+
