@@ -8,7 +8,9 @@ public interface UserService {
     UserDto createUser(UserDto userDto);
     UserDto getUserById(Long id);
     List<UserDto> getAllUsers();
-    UserDto updateUser(Long id, UserDto userDto);
+    String updateUser(UserDto userDto);
     void deleteUser(Long id);
     UserDto getUserByEmail(String email);
+
+    String synchronizeAccountGoogle(String email, String token);
 }
