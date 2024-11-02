@@ -1,12 +1,12 @@
 -- Equipments (Equipos)
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Proyector', 'Proyector HD para presentaciones',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Pizarra Blanca', 'Pizarra blanca con marcadores',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Sillas Ergonómicas', 'Sillas ergonómicas para mayor comodidad',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Mesa de Reunión', 'Mesa grande para reuniones de hasta 10 personas',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Micrófono', 'Micrófono inalámbrico para conferencias',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Pantalla Grande', 'Pantalla grande para proyecciones',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Cafetera', 'Cafetera de alta calidad',20.0);
-INSERT INTO equipments (name, description,equipement_rate) VALUES('Sofá', 'Sofá cómodo para área de descanso',20.0);
+INSERT INTO equipments (name, description) VALUES('Proyector', 'Proyector HD para presentaciones');
+INSERT INTO equipments (name, description) VALUES('Pizarra Blanca', 'Pizarra blanca con marcadores');
+INSERT INTO equipments (name, description) VALUES('Sillas Ergonómicas', 'Sillas ergonómicas para mayor comodidad');
+INSERT INTO equipments (name, description) VALUES('Mesa de Reunión', 'Mesa grande para reuniones de hasta 10 personas');
+INSERT INTO equipments (name, description) VALUES('Micrófono', 'Micrófono inalámbrico para conferencias');
+INSERT INTO equipments (name, description) VALUES('Pantalla Grande', 'Pantalla grande para proyecciones');
+INSERT INTO equipments (name, description) VALUES('Cafetera', 'Cafetera de alta calidad');
+INSERT INTO equipments (name, description) VALUES('Sofá', 'Sofá cómodo para área de descanso');
 
 -- Sites (Sitios/Establecimientos)
 

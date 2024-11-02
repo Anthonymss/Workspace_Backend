@@ -1,6 +1,6 @@
 package com.coworking.spaces_service.service.impl;
 
-import com.coworking.spaces_service.persistence.entity.Equipment;
+import com.coworking.spaces_service.exception.NotFoundSpace;
 import com.coworking.spaces_service.persistence.entity.Space;
 import com.coworking.spaces_service.persistence.repository.EquipmentRepository;
 import com.coworking.spaces_service.persistence.repository.SpaceEquipmentRepository;
@@ -11,6 +11,8 @@ import com.coworking.spaces_service.service.SpaceService;
 import com.coworking.spaces_service.util.enums.SpaceType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,6 +45,22 @@ public class SpaceServiceImpl implements SpaceService {
         return spaceDtos;
     }
 
+    @Override
+    public SpaceDto getSpaceById(Long id) {
+        if(!spaceRepository.existsById(id)) {
+            throw new NotFoundSpace("No space found with id " + id);
+        }
+        return convertToDto(spaceRepository.getReferenceById(id));
+    }
+
+    @Override
+    public BigDecimal getPriceHourById(Long id) {
+        if(!spaceRepository.existsById(id)) {
+            throw new NotFoundSpace("No space found with id " + id);
+        }
+        return spaceRepository.getReferenceById(id).getPricePerHour();
+    }
+
     private String generateCacheKey(String city, String district, String type) {
         return String.join("_", city == null ? "" : city, district == null ? "" : district, type == null ? "" : type);
     }
@@ -63,7 +81,6 @@ public class SpaceServiceImpl implements SpaceService {
                         .name(equipment.getEquipment().getName())
                         .description(equipment.getEquipment().getDescription())
                         .quantity(equipment.getQuantity())
-                        .equipmentRate(equipment.getEquipment().getEquipmentRate())
                         .build())
                 .collect(Collectors.toList());
 
@@ -79,5 +96,8 @@ public class SpaceServiceImpl implements SpaceService {
                 .spaceType(space.getSpaceType().name())
                 .ListEquipment(equipmentDtoList)
                 .build();
+    }
+    public void updateCache() {
+        this.spacesCache.clear();
     }
 }

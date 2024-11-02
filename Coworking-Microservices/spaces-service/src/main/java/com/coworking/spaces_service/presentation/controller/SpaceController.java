@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,16 @@ public class SpaceController {
         return new ResponseEntity<>(spaceService.getFilteredSpaces(cityParam, districtParam, typeParam), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<SpaceDto> getSpaceById(@PathVariable Long id) {
+        SpaceDto spaceDto = spaceService.getSpaceById(id);
+        return new ResponseEntity<>(spaceDto, HttpStatus.OK);
+    }
+    @GetMapping("/price/{id}")
+    public ResponseEntity<BigDecimal> getSpacePriceById(@PathVariable Long id) {
+        BigDecimal price = spaceService.getPriceHourById(id);
+        return new ResponseEntity<>(price, HttpStatus.OK);
+    }
 
 
 }

@@ -19,8 +19,6 @@ public class Equipment {
     @Column(nullable = false)
     private String name;
     private String description;
-    @Column(nullable = false,name = "equipement_rate")
-    private BigDecimal equipmentRate;
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SpaceEquipment> spaceEquipments;
 }
