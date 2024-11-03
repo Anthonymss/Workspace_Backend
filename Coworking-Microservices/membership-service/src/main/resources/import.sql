@@ -1,5 +1,0 @@
-INSERT INTO memberships (name, description, price, duration, urlimage1, urlimage2, urlimage3, type)
-VALUES
-    ('Basic', 'Access to shared workspaces, 10 hours of meeting room usage, high-speed Wi-Fi, coffee and tea included', 99.0, 30, 'https://comunal.co/es-PE/static/images/flex_1.jpg', 'https://comunal.co/es-PE/static/images/flex_8.jpg', 'https://comunal.co/es-PE/static/images/flex_7.jpg', 'BASIC'),
-    ('Pro', 'Unlimited access to shared workspaces, 20 hours of meeting room usage, high-speed Wi-Fi, coffee and tea included, printing services', 199.0, 30, 'https://comunal.co/es-PE/static/images/private_01_PE.webp', 'https://comunal.co/es-PE/static/images/private_02_PE.webp', 'https://comunal.co/es-PE/static/images/private_03_PE.webp', 'PRO'),
-    ('Enterprise', 'Dedicated private office, unlimited meeting room usage, high-speed Wi-Fi, coffee and tea included, printing services, 24/7 access', 399.0, 30, 'https://comunal.co/es-PE/static/images/private_1_NEW.jpeg', 'https://comunal.co/es-PE/static/images/private_2_PE.jpg', 'https://comunal.co/es-PE/static/images/private_3_PE.jpg','ENTERPRISE');
