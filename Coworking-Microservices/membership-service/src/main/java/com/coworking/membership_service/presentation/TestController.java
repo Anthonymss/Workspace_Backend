@@ -1,4 +1,4 @@
-package com.coworking.membership_service.presentation.controller;
+package com.coworking.membership_service.presentation;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

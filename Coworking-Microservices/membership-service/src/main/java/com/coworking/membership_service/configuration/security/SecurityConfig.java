@@ -1,7 +1,7 @@
 package com.coworking.membership_service.configuration.security;
 
 import com.coworking.membership_service.configuration.jwt.JwtAuthenticationFilter;
-import com.coworking.membership_service.util.enums.Role;
+import com.coworking.membership_service.util.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http

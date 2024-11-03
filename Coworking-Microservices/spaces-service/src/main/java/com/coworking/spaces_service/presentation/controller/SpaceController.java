@@ -39,6 +39,4 @@ public class SpaceController {
         BigDecimal price = spaceService.getPriceHourById(id);
         return new ResponseEntity<>(price, HttpStatus.OK);
     }
-
-
 }
