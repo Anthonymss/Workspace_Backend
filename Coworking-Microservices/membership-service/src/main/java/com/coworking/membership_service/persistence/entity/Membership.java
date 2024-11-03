@@ -22,6 +22,9 @@ public class Membership {
     private String description;
     private Double price;
     private Integer duration;
+    private String urlImage1;
+    private String urlImage2;
+    private String urlImage3;
 
     @Enumerated(EnumType.STRING)
     private MembershipType type;

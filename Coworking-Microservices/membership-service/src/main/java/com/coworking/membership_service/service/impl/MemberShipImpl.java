@@ -24,14 +24,25 @@ public class MemberShipImpl implements MembershipService {
         return memberships.stream().map(this::convertToDto).toList();
     }
 
+    @Override
+    public MembershipDTO getById(Long id) {
+        Membership membership = membershipRepository.findById(id).orElseThrow();
+        return convertToDto(membership);
+    }
+
     private MembershipDTO convertToDto(Membership membership) {
         MembershipDTO membershipDTO = new MembershipDTO(
+                membership.getId(),
                 membership.getName(),
                 membership.getDescription(),
                 membership.getPrice(),
                 membership.getDuration(),
+                membership.getUrlImage1(),
+                membership.getUrlImage2(),
+                membership.getUrlImage3(),
                 membership.getType()
         );
         return membershipDTO;
     }
+
 }

@@ -6,10 +6,14 @@ import com.coworking.membership_service.util.MembershipType;
 import java.util.List;
 
 public record MembershipDTO(
+        Long id,
         String name,
         String description,
         Double price,
         Integer duration,
+        String urlImage1,
+        String urlImage2,
+        String urlImage3,
         MembershipType type
 ) {
 }

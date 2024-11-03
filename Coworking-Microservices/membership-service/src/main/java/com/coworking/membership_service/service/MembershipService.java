@@ -7,4 +7,5 @@ import java.util.List;
 public interface MembershipService {
 
     List<MembershipDTO> getAllMemberships();
+    MembershipDTO getById(Long id);
 }
