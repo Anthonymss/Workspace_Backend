@@ -1,5 +1,6 @@
-package com.coworking.management_user.presentation.advice;
+package com.coworking.management_user.exception.advice;
 
+import com.coworking.management_user.exception.EmailMismatchException;
 import com.coworking.management_user.exception.EmailNotFoundException;
 import com.coworking.management_user.exception.InvalidJwtTokenException;
 import org.springframework.http.HttpStatus;
@@ -29,5 +30,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleEmailNotFoundException(EmailNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
-
+    @ExceptionHandler(EmailMismatchException.class)
+    public ResponseEntity<String> handleEmailMismatchException(EmailMismatchException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 }
