@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -23,13 +24,12 @@ public class Reservation {
     @Column(name = "user_id", nullable = false)
     private Long userId;
     @Column(name = "start_date", nullable = false)
-    private Date startDate;
+    private LocalDateTime startDate;
     @Column(name = "end_date", nullable = false)
-    private Date endDate;
+    private LocalDateTime endDate;
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "reservation_date")
-    private Date reservationDate;
+    private LocalDateTime reservationDate;
     private boolean status;
     @Column(name = "total_cost")
     private BigDecimal totalCost;

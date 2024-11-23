@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.coworking.billing-service</groupId>
-	<artifactId>billing-service-service</artifactId>
+	<artifactId>invoice-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>billing-service-service</name>
 	<description>Billing-service for Coworking</description>

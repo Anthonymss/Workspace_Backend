@@ -7,6 +7,7 @@ import com.coworking.spaces_service.persistence.repository.SpaceEquipmentReposit
 import com.coworking.spaces_service.persistence.repository.SpaceRepository;
 import com.coworking.spaces_service.presentation.dto.EquipmentDto;
 import com.coworking.spaces_service.presentation.dto.SpaceDto;
+import com.coworking.spaces_service.presentation.dto.SpaceResponseDto;
 import com.coworking.spaces_service.service.SpaceService;
 import com.coworking.spaces_service.util.enums.SpaceType;
 import lombok.RequiredArgsConstructor;
@@ -54,11 +55,16 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     @Override
-    public BigDecimal getPriceHourById(Long id) {
+    public SpaceResponseDto getInfoSpace(Long id) {
         if(!spaceRepository.existsById(id)) {
             throw new NotFoundSpace("No space found with id " + id);
         }
-        return spaceRepository.getReferenceById(id).getPricePerHour();
+        Space space=spaceRepository.getReferenceById(id);
+        SpaceResponseDto spaceResponseDto=SpaceResponseDto.builder()
+                .priceHour(space.getPricePerHour())
+                .spaceDescription(space.getSite().getName()+";"+space.getSite().getAddress()+";"+space.getName())
+                .build();
+        return spaceResponseDto ;
     }
 
     private String generateCacheKey(String city, String district, String type) {

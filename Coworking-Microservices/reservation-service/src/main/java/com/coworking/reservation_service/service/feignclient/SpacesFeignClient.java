@@ -1,5 +1,6 @@
 package com.coworking.reservation_service.service.feignclient;
 
+import com.coworking.reservation_service.presentation.dto.SpaceResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,6 @@ import java.math.BigDecimal;
 public interface SpacesFeignClient {
 
     @GetMapping("/api/v1/spaces/price/{id}")
-    ResponseEntity<BigDecimal> getpriceHour(@PathVariable Long id);
+    ResponseEntity<SpaceResponseDto> getInfoSpace(@PathVariable Long id);
 
 }

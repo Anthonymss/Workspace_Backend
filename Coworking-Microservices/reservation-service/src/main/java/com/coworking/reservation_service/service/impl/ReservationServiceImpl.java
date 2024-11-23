@@ -2,43 +2,67 @@ package com.coworking.reservation_service.service.impl;
 
 import com.coworking.reservation_service.persistence.entity.Reservation;
 import com.coworking.reservation_service.persistence.repository.ReservationRepository;
-import com.coworking.reservation_service.presentation.dto.ReservationDto;
-import com.coworking.reservation_service.service.ReservationService;
-import com.coworking.reservation_service.service.feignclient.SpacesFeignClient;
-import lombok.Data;
+import com.coworking.reservation_service.presentation.dto.*;
+import com.coworking.reservation_service.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
-    private final SpacesFeignClient spacesFeignClient;
-    private final ReservationRepository  reservationRepository;
+    private final SpacesFeignAdapter spacesFeignAdapter;
+    private final InvoiceFeignAdapter invoiceFeignAdapter;
+    private final ReservationRepository reservationRepository;
+    private final ReservationValidator reservationValidator;
+    private final CostCalculator costCalculator;
+    private final NotificationService notificationService;
 
+    @Transactional
     @Override
-    public String saveReservation(ReservationDto reservationDto) {
-        System.out.println("antes de convertir");
-        Reservation reservation = convert(reservationDto);
-        System.out.println("antes de feign: " + reservation);
-        BigDecimal priceHour= spacesFeignClient.getpriceHour(reservationDto.getSpaceId()).getBody();
-        System.out.println("precio: despues " + priceHour);
-        Long TotalHour=calculateHoursBetweenDates(reservationDto.getStartDate(), reservationDto.getEndDate());
-        reservation.setTotalCost(priceHour.multiply(new BigDecimal(TotalHour)));
-        System.out.println("Total cost: " + reservation.getTotalCost());
-        System.out.println("TotalHOur: " + TotalHour);
-        reservationRepository.save(reservation);
-        System.out.println("Se guardo..");
-        return "Reservation saved successfully";
+    public ReservationInvoiceDetailsResponse saveReservation(ReservationRequestDto reservationDto) {
+        Reservation reservation = convertToEntity(reservationDto);
+        reservationValidator.validateConflict(reservation);
+        SpaceResponseDto spaceResponseDto = spacesFeignAdapter.getSpaceInfo(reservationDto.getSpaceId());
+        reservation.setTotalCost(costCalculator.calculate(spaceResponseDto.getPriceHour(), reservation));
+        Reservation savedReservation = reservationRepository.save(reservation);
+        InvoiceResponse invoiceResponse = invoiceFeignAdapter.createInvoice(savedReservation, reservationDto.getPaymentMethod());
+        ReservationInvoiceDetailsResponse invoiceDetailsResponse =ReservationInvoiceDetailsResponse.builder()
+                .invoiceNumber(invoiceResponse.getInvoiceNumber())
+                .reservationId(savedReservation.getId())
+                .spaceDetails(spaceResponseDto.getSpaceDescription())
+                .reservationDate(savedReservation.getReservationDate())
+                .subtotal(invoiceResponse.getSubtotal())
+                .taxAmount(invoiceResponse.getTaxAmount())
+                .totalCost(invoiceResponse.getTotalCost())
+                .paymentMethod(invoiceResponse.getPaymentMethod())
+                .durationRange(savedReservation.getStartDate() + " - " + savedReservation.getEndDate())
+                .build();
+        notificationService.sendWelcomeEmailAsync("ReservationTemplate",invoiceDetailsResponse );
+
+        return invoiceDetailsResponse;
     }
 
     @Override
-    public ReservationDto getReservationById(Long id) {
+    public ReservationRequestDto getReservationById(Long id) {
         return null;
     }
-    private Reservation convert(ReservationDto  reservationDto){
+
+    @Override
+    public List<TimeSlotDto> getOccupiedTimeSlots(Long spaceId, LocalDate date) {
+        List<Reservation> reservations = reservationRepository.findBySpaceIdAndDate(spaceId, date);
+        return reservations.stream()
+                .map(reservation -> new TimeSlotDto(convertToLocalTime(reservation.getStartDate()), convertToLocalTime(reservation.getEndDate())))
+                .collect(Collectors.toList());
+    }
+    private Reservation convertToEntity(ReservationRequestDto reservationDto){
         return Reservation.builder()
                 .spaceId(reservationDto.getSpaceId())
                 .userId(reservationDto.getUserId())
@@ -48,8 +72,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .status(true)
                 .build();
     }
-    public  Long calculateHoursBetweenDates(Date fechaInicio, Date fechaFin) {
-        long diferenciaMillis = fechaFin.getTime() - fechaInicio.getTime();
-        return diferenciaMillis / (1000 * 60 * 60);
+    private static LocalTime convertToLocalTime(LocalDateTime dateTime) {
+        return dateTime.toLocalTime();
     }
 }
