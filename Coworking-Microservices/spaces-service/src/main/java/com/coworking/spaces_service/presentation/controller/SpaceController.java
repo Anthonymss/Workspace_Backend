@@ -1,6 +1,7 @@
 package com.coworking.spaces_service.presentation.controller;
 
 import com.coworking.spaces_service.presentation.dto.SpaceDto;
+import com.coworking.spaces_service.presentation.dto.SpaceResponseDto;
 import com.coworking.spaces_service.service.SpaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,8 @@ public class SpaceController {
         return new ResponseEntity<>(spaceDto, HttpStatus.OK);
     }
     @GetMapping("/price/{id}")
-    public ResponseEntity<BigDecimal> getSpacePriceById(@PathVariable Long id) {
-        BigDecimal price = spaceService.getPriceHourById(id);
-        return new ResponseEntity<>(price, HttpStatus.OK);
+    public ResponseEntity<SpaceResponseDto> getSpacePriceById(@PathVariable Long id) {
+        SpaceResponseDto spaceResponseDto = spaceService.getInfoSpace(id);
+        return new ResponseEntity<>(spaceResponseDto, HttpStatus.OK);
     }
 }

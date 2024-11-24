@@ -2,18 +2,22 @@ package com.coworking.reservation_service.presentation.dto;
 
 import lombok.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDto {
+public class ReservationRequestDto {
     private Long id;
     private Long spaceId;
     private Long userId;
-    private Date startDate;
-    private Date endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private boolean status;
     private BigDecimal totalCost;
     private String comments;
+
+    //other
+    private String paymentMethod;
 
 }

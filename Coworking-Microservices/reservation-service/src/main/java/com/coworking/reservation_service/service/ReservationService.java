@@ -1,18 +1,15 @@
 package com.coworking.reservation_service.service;
 
-import com.coworking.reservation_service.presentation.dto.ReservationDto;
+import com.coworking.reservation_service.presentation.dto.ReservationInvoiceDetailsResponse;
+import com.coworking.reservation_service.presentation.dto.ReservationRequestDto;
+import com.coworking.reservation_service.presentation.dto.TimeSlotDto;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ReservationService {
-    String saveReservation(ReservationDto reservationDto);
-    ReservationDto getReservationById(Long id);
+    ReservationInvoiceDetailsResponse saveReservation(ReservationRequestDto reservationDto);
+    ReservationRequestDto getReservationById(Long id);
+
+    List<TimeSlotDto> getOccupiedTimeSlots(Long spaceId, LocalDate date);
 }
-/*
-    private Long id;
-    private Long spaceId;
-    private Long userId;
-    private String startDate;
-    private String endDate;
-    private boolean status;
-    private BigDecimal totalCost;
- */

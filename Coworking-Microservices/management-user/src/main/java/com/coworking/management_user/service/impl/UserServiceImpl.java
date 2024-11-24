@@ -1,5 +1,6 @@
 package com.coworking.management_user.service.impl;
 
+import com.coworking.management_user.exception.EmailMismatchException;
 import com.coworking.management_user.exception.EmailNotFoundException;
 import com.coworking.management_user.persistence.entity.User;
 import com.coworking.management_user.persistence.entity.UserAuthentication;
@@ -92,6 +93,9 @@ public class UserServiceImpl implements UserService {
         Map<String, String> body = new HashMap<>();
         body.put("token", token);
         Map<String, String> mapResponseInfoGoogle = authServiceFeignClient.getGoogleAccountInfo(body);
+        String emailResponse=mapResponseInfoGoogle.get("email");
+        if (!email.equals(emailResponse))
+            throw new EmailMismatchException("Emails do not match");
         user.setProfileImageUrl(mapResponseInfoGoogle.get("profileImageUrl"));
         user.setStatusOauthEnabled(true);
         userAuthentication.setAuthProvider("Google");
