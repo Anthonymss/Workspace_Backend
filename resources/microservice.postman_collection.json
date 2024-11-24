@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\":\"Gian\",\r\n    \"lastName\":\"Choque\",\r\n    \"email\":\"giananthonych@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+							"raw": "\r\n{\r\n    \"email\":\"giananthonych@gmail.com\",\r\n    \"firstName\":\"Gian\",\r\n    \"lastName\":\"Choque\",\r\n    \"password\":\"123\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -68,6 +68,39 @@
 								"v1",
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "info acoound Google",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjczZTI1Zjk3ODkxMTljNzg3NWQ1ODA4N2E3OGFjMjNmNWVmMmVkYTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4MDg3MzMyMzcxOTAtdGlwaHVsc2VncmFpb2RnaGw5MW8zOWxxYTFjZjIycHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4MDg3MzMyMzcxOTAtdGlwaHVsc2VncmFpb2RnaGw5MW8zOWxxYTFjZjIycHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDcwNzEwNzA0Mzg2ODQyMDAwNjIiLCJlbWFpbCI6ImdpYW5hbnRob255Y2hAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTcyOTcxMjc5NCwibmFtZSI6IkdpYW4gQW50aG9ueSBDaG9xdWUgUXVpc3BlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w0N2xCRWlQS2t4a3hLQXppZUNESnFsV3VObUVjbFRBcXVsazE5TkdENTh5OTBQdz1zOTYtYyIsImdpdmVuX25hbWUiOiJHaWFuIEFudGhvbnkiLCJmYW1pbHlfbmFtZSI6IkNob3F1ZSBRdWlzcGUiLCJpYXQiOjE3Mjk3MTMwOTQsImV4cCI6MTcyOTcxNjY5NCwianRpIjoiZGU4NDJlNWYxYWVmZGM2ZWZlMjVkODJkYzY3YThjMjk0YTQzZTU5MiJ9.hlZYVPb8G7mxb7lDLBY3nB6jv_y_KFViU9AIyWoKaEx9r0fvVCI2Q-1IZhhrMevPC0Af8NxnVBho7d_d-dJdWIiDgwSLFDsxnpw_OOfbmyP0cqlbu9m8hA1IA7Xe4hlUz1Rg_ZLbBWnTJK4h62qB-6OBWNaHVtiEviVdz1Mx6tQslCFa2PlNrLMTk0F47S4NuKiEiY6vIJa-k7Ag3EBq6GttBMvZP6m8ZJqQWNHdBE6_hPDmthBbUPA9AdpeJXZnk5pltUAx4R9sXrasnnboUViL80y-dGoPkJJnha_u15j1wPkQuFlfT-Ghw2S9Ue1mjKYBcu4ntlJ48gVaeDLKJQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/api/v1/auth/account/google",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"api",
+								"v1",
+								"auth",
+								"account",
+								"google"
 							]
 						}
 					},
@@ -150,19 +183,12 @@
 					"name": "info cuenta email",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnaWFuYW50aG9ueWNoQGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3MjkzMDk3NjIsImV4cCI6MTcyOTM5NjE2Mn0.MwLxL6tEicEZSS-LPvXlvOY4WtWBQkcaEtZLZODd3Vq9YOejJRZOfobmV21Pjr1rNqUQ8-7mIc-Iyl12lrmMiw",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/management/api/v1/management/giananthonych@gmail.com",
+							"raw": "http://localhost:8080/management/api/v1/management/user/giananthonych@gmail.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -173,7 +199,222 @@
 								"api",
 								"v1",
 								"management",
+								"user",
 								"giananthonych@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "to-serviceauth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"giananthonych@gmail.com\",\r\n    \"token\":\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjczZTI1Zjk3ODkxMTljNzg3NWQ1ODA4N2E3OGFjMjNmNWVmMmVkYTMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI4MDg3MzMyMzcxOTAtdGlwaHVsc2VncmFpb2RnaGw5MW8zOWxxYTFjZjIycHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI4MDg3MzMyMzcxOTAtdGlwaHVsc2VncmFpb2RnaGw5MW8zOWxxYTFjZjIycHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDcwNzEwNzA0Mzg2ODQyMDAwNjIiLCJlbWFpbCI6ImdpYW5hbnRob255Y2hAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTcyOTcxMjc5NCwibmFtZSI6IkdpYW4gQW50aG9ueSBDaG9xdWUgUXVpc3BlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0w0N2xCRWlQS2t4a3hLQXppZUNESnFsV3VObUVjbFRBcXVsazE5TkdENTh5OTBQdz1zOTYtYyIsImdpdmVuX25hbWUiOiJHaWFuIEFudGhvbnkiLCJmYW1pbHlfbmFtZSI6IkNob3F1ZSBRdWlzcGUiLCJpYXQiOjE3Mjk3MTMwOTQsImV4cCI6MTcyOTcxNjY5NCwianRpIjoiZGU4NDJlNWYxYWVmZGM2ZWZlMjVkODJkYzY3YThjMjk0YTQzZTU5MiJ9.hlZYVPb8G7mxb7lDLBY3nB6jv_y_KFViU9AIyWoKaEx9r0fvVCI2Q-1IZhhrMevPC0Af8NxnVBho7d_d-dJdWIiDgwSLFDsxnpw_OOfbmyP0cqlbu9m8hA1IA7Xe4hlUz1Rg_ZLbBWnTJK4h62qB-6OBWNaHVtiEviVdz1Mx6tQslCFa2PlNrLMTk0F47S4NuKiEiY6vIJa-k7Ag3EBq6GttBMvZP6m8ZJqQWNHdBE6_hPDmthBbUPA9AdpeJXZnk5pltUAx4R9sXrasnnboUViL80y-dGoPkJJnha_u15j1wPkQuFlfT-Ghw2S9Ue1mjKYBcu4ntlJ48gVaeDLKJQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/management/api/v1/management/user/synchronize-google",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"management",
+								"api",
+								"v1",
+								"management",
+								"user",
+								"synchronize-google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "spaces",
+			"item": [
+				{
+					"name": "SECURITY",
+					"item": [
+						{
+							"name": "test",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8084/api/v1/test/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"v1",
+										"test",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Spaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spaces/spaces",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spaces",
+								"spaces"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listartodo",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "listar por ciudad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/api/v1/spaces/city/Madrid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"city",
+								"Madrid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar por address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/api/v1/spaces/address/123 Main St",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"address",
+								"123 Main St"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lista por centro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/api/v1/spaces/district/Centro",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"district",
+								"Centro"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification-Service",
+			"item": [
+				{
+					"name": "probando send email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"firstName\":\"Gian Anthony\",\r\n    \"lastName\":\"Choque Quispe\",\r\n    \"email\":\"giananthonych@gmail.com\",\r\n    \"accountCreated\":null,\r\n    \"asd\":\"sda\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/api/v1/notifications/send?templateName=WelcomeTemplate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"v1",
+								"notifications",
+								"send"
+							],
+							"query": [
+								{
+									"key": "templateName",
+									"value": "WelcomeTemplate"
+								}
 							]
 						}
 					},

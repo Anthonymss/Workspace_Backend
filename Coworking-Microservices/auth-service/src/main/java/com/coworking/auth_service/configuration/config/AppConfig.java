@@ -12,14 +12,21 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientIdGoogle;
+<<<<<<< HEAD
     @Value("${url.fronend}")
     private String urlFronend;
+=======
+>>>>>>> anthony
     @Bean
     public String googleClientId() {
         return clientIdGoogle;
     }
+<<<<<<< HEAD
     @Bean
     public String urlFronend() {
         return urlFronend;
     }
+=======
+
+>>>>>>> anthony
 }
