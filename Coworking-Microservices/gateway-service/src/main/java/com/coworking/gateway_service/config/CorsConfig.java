@@ -1,9 +1,5 @@
 package com.coworking.gateway_service.config;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 
->>>>>>> anthony
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

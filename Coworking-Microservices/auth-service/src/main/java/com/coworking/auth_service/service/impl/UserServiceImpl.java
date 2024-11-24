@@ -20,10 +20,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-<<<<<<< HEAD
-=======
 import org.springframework.scheduling.annotation.Async;
->>>>>>> anthony
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,11 +36,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-<<<<<<< HEAD
-public class UserServiceImpl implements UserService {
-=======
 public class UserServiceImpl implements UserService, IMethodInfoGoogle {
->>>>>>> anthony
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -51,21 +44,14 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserAuthenticationRepository authenticationRepository;
     private final String clientIdGoogle;
-<<<<<<< HEAD
-=======
     private final NotificationService notificationService;
->>>>>>> anthony
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder,
                            AuthenticationManager authenticationManager,
                            JwtTokenProvider jwtTokenProvider,
                            UserAuthenticationRepository authenticationRepository,
-<<<<<<< HEAD
-                           @Qualifier("googleClientId") String clientIdGoogle) {
-=======
                            @Qualifier("googleClientId") String clientIdGoogle, MailServiceFeignClient mailServiceFeign, NotificationService notificationService) {
->>>>>>> anthony
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -73,10 +59,7 @@ public class UserServiceImpl implements UserService, IMethodInfoGoogle {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationRepository = authenticationRepository;
         this.clientIdGoogle = clientIdGoogle;
-<<<<<<< HEAD
-=======
         this.notificationService = notificationService;
->>>>>>> anthony
     }
     @Override
     @Transactional

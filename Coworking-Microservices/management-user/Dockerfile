@@ -26,7 +26,4 @@ EXPOSE 8082
 
 # Comando para ejecutar la aplicación con el perfil 'prod'
 CMD ["java", "-jar", "/app/app.jar", "--spring.profiles.active=prod"]
-<<<<<<< HEAD
-=======
 
->>>>>>> anthony
