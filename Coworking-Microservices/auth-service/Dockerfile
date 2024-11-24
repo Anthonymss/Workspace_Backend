@@ -25,8 +25,4 @@ COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 8082
 
 # Comando para ejecutar la aplicación con el perfil 'prod'
-<<<<<<< HEAD
 CMD ["java", "-jar", "/app/app.jar", "--spring.profiles.active=prod"]
-=======
-CMD ["java", "-jar", "/app/app.jar", "--spring.profiles.active=prod"]
->>>>>>> anthony
