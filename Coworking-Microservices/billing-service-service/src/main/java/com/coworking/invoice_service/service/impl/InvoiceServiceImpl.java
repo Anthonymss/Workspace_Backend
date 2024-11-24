@@ -40,7 +40,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     private String generateInvoiceNumber() {
-        return "CWK" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        return "K00" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
     }
     private BigDecimal calculateTax(BigDecimal subtotal) {
         return subtotal.multiply(TAX_RATE);

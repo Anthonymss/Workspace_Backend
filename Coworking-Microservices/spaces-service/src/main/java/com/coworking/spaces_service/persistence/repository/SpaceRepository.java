@@ -19,4 +19,10 @@ public interface SpaceRepository extends JpaRepository<Space, Long> {
     List<Space> findSpaces(@Param("city") String city,
                            @Param("district") String district,
                            @Param("spaceType") SpaceType spaceType);
+    @Query("SELECT DISTINCT s.site.city FROM Space s")
+    List<String> findDistinctCity();
+
+    @Query("SELECT DISTINCT s.site.district FROM Space s")
+    List<String> findDistinctDistrict();
+
 }
