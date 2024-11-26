@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "invoice-service")
+@FeignClient(name = "invoice-service", url = "http://localhost:8087")
 public interface InvoiceMembFeignClient {
 
-    @PostMapping("http://localhost:8087/api/v1/invoices/createMembership")
+    @PostMapping("/api/v1/invoices/createMembership")
     ResponseEntity<InvoiceResponse> createMembershipInvoice(@RequestBody InvoiceRequest invoiceRequest);
 }
