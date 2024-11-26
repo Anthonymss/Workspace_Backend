@@ -53,8 +53,8 @@ public class UserMembershipImpl implements UserMembershipService {
                 .subtotal(invoiceResponse.subtotal())
                 .total(invoiceResponse.totalCost())
                 .metodoPago(invoiceResponse.paymentMethod())
-                .fechaInicio(fechaInicio())
-                .fechaFin(fechaFin())
+                .fechaInicio(userMembershipDTO.startDate())
+                .fechaFin(userMembershipDTO.endDate())
                 .build();
         return membershipInvoiceDetailsResponse;
     }
@@ -66,15 +66,8 @@ public class UserMembershipImpl implements UserMembershipService {
         userMembership.setUserId(userMembershipDTO.userId());
         userMembership.setMembership(membership);
         userMembership.setStartDate(userMembershipDTO.startDate());
+        userMembership.setEndDate(userMembershipDTO.endDate());
         userMembership.setStatus(userMembershipDTO.status());
         return userMembership;
-    }
-
-    private LocalDate fechaInicio(){
-        return LocalDate.now();
-    }
-
-    private LocalDate fechaFin(){
-        return LocalDate.now().plusMonths(1);
     }
 }

@@ -10,6 +10,7 @@ public record UserMembershipDTO(
         Long userId,
         Long membershipId,
         LocalDate startDate,
+        LocalDate endDate,
         MembershipStatus status,
         String paymentMethod
 ) {

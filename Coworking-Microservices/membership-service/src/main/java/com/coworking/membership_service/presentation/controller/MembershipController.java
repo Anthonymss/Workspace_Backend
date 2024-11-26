@@ -1,6 +1,7 @@
 package com.coworking.membership_service.presentation.controller;
 
 import com.coworking.membership_service.presentation.DTO.MembershipDTO;
+import com.coworking.membership_service.presentation.DTO.MembershipInvoiceDetailsResponse;
 import com.coworking.membership_service.presentation.DTO.UserMembershipDTO;
 import com.coworking.membership_service.service.MembershipService;
 import com.coworking.membership_service.service.UserMembershipService;
@@ -34,8 +35,7 @@ public class MembershipController {
     }
 
     @PostMapping
-    public ResponseEntity<UserMembershipDTO> saveUserMembership(@RequestBody UserMembershipDTO userMembershipDTO) {
-        userMembershipService.saveMembership(userMembershipDTO);
-        return ResponseEntity.ok(userMembershipDTO);
+    public ResponseEntity<MembershipInvoiceDetailsResponse> saveUserMembership(@RequestBody UserMembershipDTO userMembershipDTO) {
+        return ResponseEntity.ok(userMembershipService.saveMembership(userMembershipDTO));
     }
 }
