@@ -46,7 +46,7 @@ public class UserMembershipImpl implements UserMembershipService {
         InvoiceResponse invoiceResponse = invoiceFeignAdapter.createInvoice(userMembership, userMembershipDTO.paymentMethod());
         MembershipInvoiceDetailsResponse membershipInvoiceDetailsResponse = MembershipInvoiceDetailsResponse.builder()
                 .invoiceNumber(invoiceResponse.invoiceNumber())
-                .tipo(invoiceResponse.membershipId())
+                .tipo(userMembershipDTO.membershipId())
                 .fecha(invoiceResponse.fecha())
                 .subtotal(invoiceResponse.subtotal())
                 .iva(invoiceResponse.taxAmount())

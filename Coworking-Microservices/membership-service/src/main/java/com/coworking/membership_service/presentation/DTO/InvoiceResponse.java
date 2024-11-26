@@ -1,5 +1,7 @@
 package com.coworking.membership_service.presentation.DTO;
 
+import com.coworking.membership_service.persistence.entity.Membership;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
