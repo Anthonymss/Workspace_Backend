@@ -15,7 +15,7 @@ public class CorsConfig {
     public CorsWebFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(Arrays.asList("https://workspace-umber-mu.vercel.app"));
+        config.setAllowedOrigins(Arrays.asList("https://workspace-umber-mu.vercel.app","http://localhost:5173"));
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
