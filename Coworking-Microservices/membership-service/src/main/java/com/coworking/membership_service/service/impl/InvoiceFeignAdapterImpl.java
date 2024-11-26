@@ -24,6 +24,6 @@ public class InvoiceFeignAdapterImpl implements InvoiceFeignAdapter {
                 userMembership.getMembership().getPrice(),
                 paymentMethod
         );
-        return invoiceMembFeignClient.createInvoiceMemb(request).getBody();
+        return invoiceMembFeignClient.createMembershipInvoice(request).getBody();
     }
 }

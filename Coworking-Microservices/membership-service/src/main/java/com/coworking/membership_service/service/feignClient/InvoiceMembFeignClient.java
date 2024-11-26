@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface InvoiceMembFeignClient {
 
     @PostMapping("http://localhost:8087/api/v1/invoices/createMembership")
-    ResponseEntity<InvoiceResponse> createInvoiceMemb(@RequestBody InvoiceRequest invoiceRequest);
+    ResponseEntity<InvoiceResponse> createMembershipInvoice(@RequestBody InvoiceRequest invoiceRequest);
 }
