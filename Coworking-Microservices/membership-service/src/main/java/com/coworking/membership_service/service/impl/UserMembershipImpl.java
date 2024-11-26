@@ -66,7 +66,6 @@ public class UserMembershipImpl implements UserMembershipService {
         userMembership.setUserId(userMembershipDTO.userId());
         userMembership.setMembership(membership);
         userMembership.setStartDate(userMembershipDTO.startDate());
-        userMembership.setEndDate(userMembershipDTO.endDate());
         userMembership.setStatus(userMembershipDTO.status());
         return userMembership;
     }
