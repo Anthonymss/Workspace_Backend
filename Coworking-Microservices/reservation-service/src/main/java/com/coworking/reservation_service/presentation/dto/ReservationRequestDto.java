@@ -16,7 +16,8 @@ public class ReservationRequestDto {
     private boolean status;
     private BigDecimal totalCost;
     private String comments;
-
+    private String email;
+    private Long user_id;
     //other
     private String paymentMethod;
 

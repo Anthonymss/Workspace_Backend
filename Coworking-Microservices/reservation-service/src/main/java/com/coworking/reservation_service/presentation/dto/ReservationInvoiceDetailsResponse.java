@@ -23,4 +23,6 @@ public class ReservationInvoiceDetailsResponse {
     private BigDecimal taxAmount;
     private BigDecimal totalCost;
     private String paymentMethod;
+    private String email;
+    private Long user_id;
 }
