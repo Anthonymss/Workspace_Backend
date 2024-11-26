@@ -18,6 +18,7 @@ import java.util.UUID;
 public class InvoiceServiceImpl implements InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private static final BigDecimal TAX_RATE = new BigDecimal("0.18");
+
     @Override
     @Transactional
     public InvoiceResponse createInvoice(InvoiceRequest invoiceRequest) {

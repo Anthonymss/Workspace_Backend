@@ -1,12 +1,11 @@
 package com.coworking.membership_service.presentation.controller;
 
 import com.coworking.membership_service.presentation.DTO.MembershipDTO;
+import com.coworking.membership_service.presentation.DTO.UserMembershipDTO;
 import com.coworking.membership_service.service.MembershipService;
+import com.coworking.membership_service.service.UserMembershipService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +14,11 @@ import java.util.List;
 public class MembershipController {
 
     private final MembershipService membershipService;
+    private final UserMembershipService userMembershipService;
 
-    public MembershipController(MembershipService membershipService) {
+    public MembershipController(MembershipService membershipService, UserMembershipService userMembershipService) {
         this.membershipService = membershipService;
+        this.userMembershipService = userMembershipService;
     }
 
     @GetMapping
@@ -30,5 +31,11 @@ public class MembershipController {
     public ResponseEntity<MembershipDTO> getMembershipById(@PathVariable Long id) {
         MembershipDTO membership = membershipService.getById(id);
         return ResponseEntity.ok(membership);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserMembershipDTO> saveUserMembership(@RequestBody UserMembershipDTO userMembershipDTO) {
+        userMembershipService.saveMembership(userMembershipDTO);
+        return ResponseEntity.ok(userMembershipDTO);
     }
 }
