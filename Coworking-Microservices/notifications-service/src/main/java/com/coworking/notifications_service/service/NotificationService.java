@@ -61,12 +61,13 @@ public class NotificationService {
         return placeholders;
     }
     private Map<String, String> buildMapHolders(ReservationInvoiceDetailsResponse response) {
+        String[] arrayInfoSite=response.getSpaceDetails().split(";");
         Map<String, String> placeholders = new HashMap<>();
         placeholders.put("NumeroFactura", response.getInvoiceNumber());
         placeholders.put("FechaReserva",response.getReservationDate().toString());
-        placeholders.put("Sitio",response.getSpaceDetails());
-        placeholders.put("Direccion",response.getSpaceDetails());
-        placeholders.put("NombreSpacio",response.getSpaceDetails());
+        placeholders.put("Sitio",arrayInfoSite[0]);
+        placeholders.put("Direccion",arrayInfoSite[1]);
+        placeholders.put("NombreSpacio",arrayInfoSite[2]);
         placeholders.put("Duracion",response.getDurationRange());
         placeholders.put("MetodoPago",response.getPaymentMethod());
         placeholders.put("Subtotal",response.getSubtotal().toString());
