@@ -12,7 +12,7 @@ public class NotificationService {
     private final MailServiceFeignClient mailServiceFeignClient;
 
     @Async
-    public void sendWelcomeEmailAsync(String templateName, ReservationInvoiceDetailsResponse reservationInvoiceDetailsResponse) {
+    public void sendReservationEmailAsync(String templateName, ReservationInvoiceDetailsResponse reservationInvoiceDetailsResponse) {
         try {
             mailServiceFeignClient.sendEmailForWelcome(templateName, reservationInvoiceDetailsResponse);
         } catch (Exception e) {

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,6 +29,7 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationInvoiceDetailsResponse saveReservation(ReservationRequestDto reservationDto) {
         Reservation reservation = convertToEntity(reservationDto);
         reservationValidator.validateConflict(reservation);
+        reservationValidator.validatePastDates(reservation);
         SpaceResponseDto spaceResponseDto = spacesFeignAdapter.getSpaceInfo(reservationDto.getSpaceId());
         reservation.setTotalCost(costCalculator.calculate(spaceResponseDto.getPriceHour(), reservation));
         Reservation savedReservation = reservationRepository.save(reservation);
@@ -45,7 +45,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .paymentMethod(invoiceResponse.getPaymentMethod())
                 .durationRange(savedReservation.getStartDate() + " - " + savedReservation.getEndDate())
                 .build();
-        notificationService.sendWelcomeEmailAsync("ReservationTemplate",invoiceDetailsResponse );
+        notificationService.sendReservationEmailAsync("ReservationTemplate",invoiceDetailsResponse );
 
         return invoiceDetailsResponse;
     }

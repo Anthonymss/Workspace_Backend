@@ -14,8 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class SpaceServiceImpl implements SpaceService {
     private final SpaceEquipmentRepository spaceEquipmentRepository;
     private final EquipmentRepository equipmentRepository;
     private final Map<String, List<SpaceDto>> spacesCache = new ConcurrentHashMap<>();//Flyweight cache
-
+    private final Map<String, List<String>> filterCache = new ConcurrentHashMap<>();
     @Override
     public List<SpaceDto> getFilteredSpaces(String city, String district, String type) {
         String cacheKey = generateCacheKey(city, district, type);
@@ -65,6 +64,14 @@ public class SpaceServiceImpl implements SpaceService {
                 .spaceDescription(space.getSite().getName()+";"+space.getSite().getAddress()+";"+space.getName())
                 .build();
         return spaceResponseDto ;
+    }
+
+    @Override
+    public Map<String, List<String>> getListFilterSpace() {
+        filterCache.computeIfAbsent("city", key ->fetchDistinctCities());
+        filterCache.computeIfAbsent("district", key -> fetchDistinctDistricts());
+        filterCache.computeIfAbsent("type", key -> fetchSpaceTypes());
+        return new HashMap<>(filterCache);
     }
 
     private String generateCacheKey(String city, String district, String type) {
@@ -105,5 +112,23 @@ public class SpaceServiceImpl implements SpaceService {
     }
     public void updateCache() {
         this.spacesCache.clear();
+    }
+    private List<String> fetchDistinctCities() {
+        return Optional.ofNullable(spaceRepository.findDistinctCity())
+                .orElse(List.of());
+    }
+
+    private List<String> fetchDistinctDistricts() {
+        return Optional.ofNullable(spaceRepository.findDistinctDistrict())
+                .orElse(List.of());
+    }
+
+    private List<String> fetchSpaceTypes() {
+        return Arrays.stream(SpaceType.values())
+                .map(SpaceType::name)
+                .collect(Collectors.toList());
+    }
+    public void invalidateCache() {
+        filterCache.clear();
     }
 }

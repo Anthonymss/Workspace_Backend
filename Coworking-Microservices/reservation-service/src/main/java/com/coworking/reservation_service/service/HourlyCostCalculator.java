@@ -1,7 +1,6 @@
-package com.coworking.reservation_service.service.impl;
+package com.coworking.reservation_service.service;
 
 import com.coworking.reservation_service.persistence.entity.Reservation;
-import com.coworking.reservation_service.service.CostCalculator;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

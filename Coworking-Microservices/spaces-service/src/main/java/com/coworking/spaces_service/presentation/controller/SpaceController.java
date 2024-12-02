@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,4 +41,13 @@ public class SpaceController {
         SpaceResponseDto spaceResponseDto = spaceService.getInfoSpace(id);
         return new ResponseEntity<>(spaceResponseDto, HttpStatus.OK);
     }
+<<<<<<< HEAD
+=======
+    @GetMapping("/filters")
+    public ResponseEntity<Map<String,List<String>>> getListFiltro(){
+        return new ResponseEntity<>(spaceService.getListFilterSpace(),HttpStatus.OK);
+    }
+
+
+>>>>>>> develop
 }
