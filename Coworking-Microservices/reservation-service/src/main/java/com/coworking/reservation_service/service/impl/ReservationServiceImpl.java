@@ -27,6 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Transactional
     @Override
     public ReservationInvoiceDetailsResponse saveReservation(ReservationRequestDto reservationDto) {
+        System.out.println("RR=>> "+reservationDto);
         Reservation reservation = convertToEntity(reservationDto);
         reservationValidator.validateConflict(reservation);
         reservationValidator.validatePastDates(reservation);
@@ -43,6 +44,8 @@ public class ReservationServiceImpl implements ReservationService {
                 .taxAmount(invoiceResponse.getTaxAmount())
                 .totalCost(invoiceResponse.getTotalCost())
                 .paymentMethod(invoiceResponse.getPaymentMethod())
+                .email(reservationDto.getEmail())
+                .user_id(reservationDto.getUserId())
                 .durationRange(savedReservation.getStartDate() + " - " + savedReservation.getEndDate())
                 .build();
         notificationService.sendReservationEmailAsync("ReservationTemplate",invoiceDetailsResponse );

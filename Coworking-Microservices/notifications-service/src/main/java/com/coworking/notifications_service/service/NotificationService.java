@@ -7,6 +7,7 @@ import com.coworking.notifications_service.persistense.entity.NotificationTempla
 import com.coworking.notifications_service.persistense.entity.UserNotification;
 import com.coworking.notifications_service.persistense.repository.NotificationTemplateRepository;
 import com.coworking.notifications_service.persistense.repository.UserNotificationRepository;
+import com.coworking.notifications_service.presentation.dto.ReservationInvoiceDetailsResponse;
 import com.coworking.notifications_service.presentation.dto.UserDto;
 import com.coworking.notifications_service.service.mailSend.EmailSenderService;
 import com.coworking.notifications_service.util.EmailContentBuilder;
@@ -59,5 +60,40 @@ public class NotificationService {
             placeholders.put("Registration Date", "No se definio");
         return placeholders;
     }
+    private Map<String, String> buildMapHolders(ReservationInvoiceDetailsResponse response) {
+        String[] arrayInfoSite=response.getSpaceDetails().split(";");
+        Map<String, String> placeholders = new HashMap<>();
+        placeholders.put("NumeroFactura", response.getInvoiceNumber());
+        placeholders.put("FechaReserva",response.getReservationDate().toString());
+        placeholders.put("Sitio",arrayInfoSite[0]);
+        placeholders.put("Direccion",arrayInfoSite[1]);
+        placeholders.put("NombreSpacio",arrayInfoSite[2]);
+        placeholders.put("Duracion",response.getDurationRange());
+        placeholders.put("MetodoPago",response.getPaymentMethod());
+        placeholders.put("Subtotal",response.getSubtotal().toString());
+        placeholders.put("Impuesto",response.getTaxAmount().toString());
+        placeholders.put("Total",response.getTotalCost().toString());
+        return placeholders;
+    }
 
+    public void sendNotification(ReservationInvoiceDetailsResponse reservationInvoiceDetailsResponse, String templateName) {
+        Optional<NotificationTemplate> templateOpt = templateRepository.findByName(templateName);
+        String email = reservationInvoiceDetailsResponse.getEmail();
+        if (templateOpt.isEmpty())
+            throw new TempladeNotFound(templateName);
+        NotificationTemplate template = templateOpt.get();
+        Map<String, String> placeholders = buildMapHolders(reservationInvoiceDetailsResponse);
+        String content = emailContentBuilder.build(template.getContent(), placeholders);
+        String subject = template.getSubject();
+        try {
+            emailSenderService.sendEmail(email, subject, content);
+        } catch (Exception e) {
+            throw new EmailSendFailed(email);
+        }
+        UserNotification notification = new UserNotification();
+        notification.setTemplateId(template.getId());
+        notification.setStatus("sent");
+        notification.setUserId(reservationInvoiceDetailsResponse.getUser_id());
+        notificationRepository.save(notification);
+    }
 }

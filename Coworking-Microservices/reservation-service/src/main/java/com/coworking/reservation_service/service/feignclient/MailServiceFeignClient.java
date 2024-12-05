@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "notifications-service")
 public interface MailServiceFeignClient {
-    @PostMapping("/api/v1/notifications/send")
+    @PostMapping("/api/v1/notifications/send/reservation")
     ResponseEntity<String> sendEmailForWelcome(@RequestParam String templateName, @RequestBody ReservationInvoiceDetailsResponse reservationInvoiceDetailsResponse);
 }

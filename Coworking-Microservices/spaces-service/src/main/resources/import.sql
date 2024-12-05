@@ -70,4 +70,3 @@ INSERT INTO space_equipment (space_id, equipment_id, quantity) VALUES(15, 3, 3);
 INSERT INTO space_equipment (space_id, equipment_id, quantity) VALUES(16, 1, 2); -- 2 Proyectores
 INSERT INTO space_equipment (space_id, equipment_id, quantity) VALUES(16, 7, 1); -- 1 Cafetera
 INSERT INTO space_equipment (space_id, equipment_id, quantity) VALUES(16, 8, 3); -- 3 Sofás
-

@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 @Data
 @Builder
 public class ReservationInvoiceDetailsResponse {
@@ -19,4 +18,6 @@ public class ReservationInvoiceDetailsResponse {
     private BigDecimal taxAmount;
     private BigDecimal totalCost;
     private String paymentMethod;
+    private String email;
+    private Long user_id;
 }
