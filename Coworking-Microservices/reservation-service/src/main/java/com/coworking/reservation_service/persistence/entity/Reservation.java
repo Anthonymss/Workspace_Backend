@@ -20,18 +20,18 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "space_id", nullable = false)
-    private Long spaceId;
+    private Long spaceId;//
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Long userId;//
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime startDate;
+    private LocalDateTime startDate;//
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private LocalDateTime endDate;//
     @CreationTimestamp
     @Column(name = "reservation_date")
     private LocalDateTime reservationDate;
-    private boolean status;
+    private boolean status;//
     @Column(name = "total_cost")
-    private BigDecimal totalCost;
-    private String comments;
+    private BigDecimal totalCost;//
+    private String comments;//
 }

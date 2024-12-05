@@ -1,10 +1,10 @@
 package com.coworking.membership_service.persistence.entity;
 
-import com.coworking.membership_service.util.enums.MembershipType;
+import com.coworking.membership_service.util.MembershipType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -13,12 +13,22 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Table(name = "memberships")
 public class Membership {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+    private String description;
+    private Double price;
+    private Integer duration;
+    private String urlImage1;
+    private String urlImage2;
+    private String urlImage3;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "membership_type",nullable = false)
-    private MembershipType membershiptype;
-    @Column(nullable = false)
-    private BigDecimal price;
+    private MembershipType type;
+
+    @OneToMany(mappedBy = "membership", cascade = CascadeType.ALL)
+    private List<UserMembership> userMemberships;
 }
