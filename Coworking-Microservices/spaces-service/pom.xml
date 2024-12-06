@@ -88,6 +88,12 @@
 			<version>0.11.2</version>
 		</dependency>
 	</dependencies>
+	<dependency>
+		<groupId>com.h2database</groupId>
+		<artifactId>h2</artifactId>
+		<scope>test</scope>
+	</dependency>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
