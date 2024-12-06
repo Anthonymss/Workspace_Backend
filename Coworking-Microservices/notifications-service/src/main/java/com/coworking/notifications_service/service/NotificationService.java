@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +62,7 @@ public class NotificationService {
         return placeholders;
     }
     private Map<String, String> buildMapHolders(ReservationInvoiceDetailsResponse response) {
+        DecimalFormat df = new DecimalFormat("#0.00");
         String[] arrayInfoSite=response.getSpaceDetails().split(";");
         Map<String, String> placeholders = new HashMap<>();
         placeholders.put("NumeroFactura", response.getInvoiceNumber());
@@ -70,9 +72,9 @@ public class NotificationService {
         placeholders.put("NombreSpacio",arrayInfoSite[2]);
         placeholders.put("Duracion",response.getDurationRange());
         placeholders.put("MetodoPago",response.getPaymentMethod());
-        placeholders.put("Subtotal",response.getSubtotal().toString());
-        placeholders.put("Impuesto",response.getTaxAmount().toString());
-        placeholders.put("Total",response.getTotalCost().toString());
+        placeholders.put("Subtotal", df.format(response.getSubtotal()));
+        placeholders.put("Impuesto", df.format(response.getTaxAmount()));
+        placeholders.put("Total", df.format(response.getTotalCost()));
         return placeholders;
     }
 

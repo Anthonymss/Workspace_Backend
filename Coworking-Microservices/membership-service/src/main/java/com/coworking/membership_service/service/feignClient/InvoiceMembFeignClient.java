@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "invoice-service", url = "http://localhost:8087")
+@FeignClient(name = "invoice-service")
 public interface InvoiceMembFeignClient {
 
     @GetMapping("/api/v1/invoices/createMembership")
